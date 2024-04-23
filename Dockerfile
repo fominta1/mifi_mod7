@@ -1,19 +1,12 @@
 FROM python:3
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get autoremove && \
-    apt-get autoclean
-
 RUN mkdir /site
-COPY . /site/
+COPY *.py /site/
+COPY requirements.txt /site/
 WORKDIR /site
 
-RUN pip install requirements.txt
-
 RUN pip install --upgrade pip
-RUN pip install django
+RUN pip install -r requirements.txt
 
 ENTRYPOINT ["python", "modul7.py"]
 CMD ["runserver", "0.0.0.0:8000"]
-
